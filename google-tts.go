@@ -28,15 +28,15 @@ func main() {
 	}
 	defer client.Close()
 
-	respl, err := client.ListVoices(ctx, &texttospeechpb.ListVoicesRequest{
-		LanguageCode: "ru"})
-	if err != nil {
-		log.Fatalf("Failed to list voices: %v", err)
-	}
+	// respl, err := client.ListVoices(ctx, &texttospeechpb.ListVoicesRequest{
+	// 	LanguageCode: "ru"})
+	// if err != nil {
+	// 	log.Fatalf("Failed to list voices: %v", err)
+	// }
 
-	for _, voice := range respl.Voices {
-		fmt.Printf("Name: %s, Supported Genders: %v, Type: %v\n", voice.Name, voice.SsmlGender, voice.NaturalSampleRateHertz)
-	}
+	// for _, voice := range respl.Voices {
+	// 	fmt.Printf("Name: %s, Supported Genders: %v, Type: %v\n", voice.Name, voice.SsmlGender, voice.NaturalSampleRateHertz)
+	// }
 
 	req := &texttospeechpb.SynthesizeSpeechRequest{
 		Input: &texttospeechpb.SynthesisInput{
