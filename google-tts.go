@@ -28,6 +28,16 @@ func main() {
 	}
 	defer client.Close()
 
+	respl, err := client.ListVoices(ctx, &texttospeechpb.ListVoicesRequest{
+		LanguageCode: "ru"})
+	if err != nil {
+		log.Fatalf("Failed to list voices: %v", err)
+	}
+
+	for _, voice := range respl.Voices {
+		fmt.Printf("Name: %s, Supported Genders: %v, Type: %v\n", voice.Name, voice.SsmlGender, voice.NaturalSampleRateHertz)
+	}
+
 	req := &texttospeechpb.SynthesizeSpeechRequest{
 		Input: &texttospeechpb.SynthesisInput{
 			InputSource: &texttospeechpb.SynthesisInput_Text{Text: text},
@@ -35,6 +45,7 @@ func main() {
 		Voice: &texttospeechpb.VoiceSelectionParams{
 			LanguageCode: "ru",
 			SsmlGender:   texttospeechpb.SsmlVoiceGender_NEUTRAL,
+			Name:         "ru-RU-Standard-A",
 		},
 		AudioConfig: &texttospeechpb.AudioConfig{
 			AudioEncoding: texttospeechpb.AudioEncoding_MP3,
